@@ -76,3 +76,30 @@ def project_columns():
     people = person_collection.find({}, columns) # will find only the columns specified
     for person in people:
         printer.pprint(person)
+
+
+""" updating and replace documents """
+
+def update_person_by_id(person_id):
+    _id = ObjectId(person_id)
+
+    # all_updates = {
+    #     "$set" : {"new_field" : True}, # sets a new field for a value of our choice if field already exists, using '$set' would override the field with our new parameters
+    #     "$inc" : {"age": 1}, # increments selected column by chosen amount
+    #     "$rename" : {"first name" : "first", "last name" : "last"} # renames all selected fields
+    #     }
+
+    # person_collection.update_one({"_id" : _id}, all_updates)
+
+    person_collection.update_one({"_id" : _id}, {"$unset" : {"new_field" : ""}}) # deletes the chosen field
+
+def replace_one(person_id):
+    _id = ObjectId(person_id)
+
+    new_doc = {"first name" : "new first name",
+               "last name" : "new last name",
+               "age" : 100}
+
+    person_collection.replace_one({"_id" : _id}, new_doc)
+
+replace_one('696fbc0ad8306498a77fff5b')
