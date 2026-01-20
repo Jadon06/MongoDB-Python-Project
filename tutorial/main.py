@@ -104,3 +104,27 @@ def replace_one(person_id):
 
 
 """ deleting documents """
+
+def delete_doc_by_id(person_id):
+    _id = ObjectId(person_id)
+    person_collection.delete_one({"_id": _id})
+
+""" Relationships """
+
+def add_address_embed(person_id):
+    _id = ObjectId(person_id)
+    address = {"street" : "100 Silverstar Blvd",
+               "city" : "Scarborough", 
+               "Province" : "Ontario"}
+    person_collection.update_one({"_id" : _id},{"$addToSet" : {'address/addresses' : address}}) # adds this address to the key addresses
+
+def add_address_relationship(person_id, address): # creates a new collection where the owner_id is associated with the persons id in the persons collection
+    _id = ObjectId(person_id)
+    address_collection = production.address
+    address = address.copy()
+    address['ownder_id'] = _id
+    address_collection.insert_one(address)
+
+add_address_relationship('696fbc0ad8306498a77fff5c', {"street" : "100 Silverstar Blvd",
+               "city" : "Scarborough", 
+               "Province" : "Ontario"})
