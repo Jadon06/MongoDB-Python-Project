@@ -5,7 +5,8 @@ from pymongo import AsyncMongoClient
 from bson.objectid import ObjectId
 from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie
-from .pydantic_schemas import students, course_schema
+from .pydantic_schemas import course_schema
+from .models import students
 
 load_dotenv(find_dotenv()) # loads the environment variable without having to define a path(shortcut)
 password = os.environ.get("MONGODB_PWD") # Locates the environment variable names 'MONGO_DB_PWD' and stores it in password
