@@ -13,4 +13,4 @@ Topics this project covered:
             - document
             - ODMs
         - AsycnIOMotorClient
-        
+    - CRUD operations
